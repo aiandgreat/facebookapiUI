@@ -4,12 +4,12 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    // Proxy API requests to the Spring Boot backend running on :8080
+    // Proxy API requests to the remote backend (Render deployment)
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'https://post-api-t9gq.onrender.com', // Updated URL
         changeOrigin: true,
-        secure: false
+        // The 'secure: false' flag was removed as we are targeting a production HTTPS endpoint.
       }
     }
   }
