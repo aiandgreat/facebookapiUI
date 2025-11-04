@@ -3,7 +3,7 @@ import PostList from './components/PostList'
 import PostForm from './components/PostForm'
 
 // Define the absolute API endpoint URL
-const POSTS_API_URL = 'https://post-api-t9gq.onrender.com/api/posts'
+const POSTS_API_URL = 'https://post-api-t9gq.onrender.com/api/posts/'
 
 export default function App() {
   const [posts, setPosts] = useState([])
