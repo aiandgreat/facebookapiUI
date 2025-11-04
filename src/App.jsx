@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import PostList from './components/PostList'
 import PostForm from './components/PostForm'
 
+// Define the absolute API endpoint URL
+const POSTS_API_URL = 'https://post-api-t9gq.onrender.com/api/posts'
+
 export default function App() {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -12,7 +15,8 @@ export default function App() {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch('/api/posts')
+      // Using the absolute API URL
+      const res = await fetch(POSTS_API_URL)
       if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`)
       const data = await res.json()
       // Expecting an array (the backend returns [] when no posts)
@@ -30,7 +34,8 @@ export default function App() {
 
   const createPost = async ({ author, content, imageUrl }) => {
     const body = { author, content, imageUrl }
-    const res = await fetch('/api/posts', {
+    // Using the absolute API URL
+    const res = await fetch(POSTS_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
@@ -45,13 +50,15 @@ export default function App() {
   }
 
   const deletePost = async (id) => {
-    const res = await fetch(`/api/posts/${id}`, { method: 'DELETE' })
+    // Using the absolute API URL with ID appended
+    const res = await fetch(`${POSTS_API_URL}/${id}`, { method: 'DELETE' })
     if (!res.ok) throw new Error('Failed to delete')
     setPosts(prev => prev.filter(p => p.id !== id))
   }
 
   const updatePost = async (id, { author, content, imageUrl }) => {
-    const res = await fetch(`/api/posts/${id}`, {
+    // Using the absolute API URL with ID appended
+    const res = await fetch(`${POSTS_API_URL}/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ author, content, imageUrl })
